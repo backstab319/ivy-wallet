@@ -6,8 +6,6 @@ plugins {
     id("dagger.hilt.android.plugin")
     id("org.jetbrains.kotlin.plugin.serialization")
     id("com.google.devtools.ksp")
-    id("com.google.gms.google-services")
-    id("com.google.firebase.crashlytics")
     id("io.gitlab.arturbosch.detekt")
 }
 
@@ -16,7 +14,9 @@ android {
     compileSdk = libs.versions.target.sdk.get().toInt()
 
     defaultConfig {
-        applicationId = "com.ivy.wallet"
+        // This fork has its own id so that it installs next to the original Ivy Wallet
+        // and can be registered as an OAuth client for Google Drive sync.
+        applicationId = "com.backstab319.ivywallet"
         minSdk = libs.versions.min.sdk.get().toInt()
         targetSdk = libs.versions.target.sdk.get().toInt()
         versionName = libs.versions.version.name.get()
@@ -123,6 +123,7 @@ android {
 
 dependencies {
     implementation(projects.feature.attributions)
+    implementation(projects.feature.automation)
     implementation(projects.feature.balance)
     implementation(projects.feature.budgets)
     implementation(projects.feature.categories)
@@ -163,7 +164,6 @@ dependencies {
     implementation(libs.bundles.compose)
     implementation(libs.bundles.activity)
     implementation(libs.bundles.google)
-    implementation(libs.bundles.firebase)
     implementation(libs.datastore)
     implementation(libs.androidx.security)
     implementation(libs.androidx.biometrics)

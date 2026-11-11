@@ -32,6 +32,7 @@ import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.ivy.IvyNavGraph
+import com.ivy.automation.AutomationEntryPoint
 import com.ivy.base.legacy.Theme
 import com.ivy.base.time.TimeConverter
 import com.ivy.base.time.TimeProvider
@@ -336,6 +337,18 @@ class RootActivity : AppCompatActivity(), RootScreen {
         if (viewModel.isAppLockEnabled()) {
             viewModel.checkUserInactiveTimeStatus()
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        // Pick up changes made on other devices
+        AutomationEntryPoint.get(this).driveSyncScheduler().syncSoonIfEnabled(delaySeconds = 0)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        // Back up what was changed while the app was open
+        AutomationEntryPoint.get(this).driveSyncScheduler().syncSoonIfEnabled()
     }
 
     override fun onPause() {

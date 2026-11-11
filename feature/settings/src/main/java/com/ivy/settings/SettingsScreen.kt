@@ -49,6 +49,7 @@ import com.ivy.legacy.rootScreen
 import com.ivy.legacy.utils.drawColoredShadow
 import com.ivy.navigation.AttributionsScreen
 import com.ivy.navigation.ContributorsScreen
+import com.ivy.navigation.AutomationScreen
 import com.ivy.navigation.ExchangeRatesScreen
 import com.ivy.navigation.FeaturesScreen
 import com.ivy.navigation.ImportScreen
@@ -255,6 +256,17 @@ private fun BoxWithConstraintsScope.UI(
                 iconPadding = 8.dp
             ) {
                 onBackupData()
+            }
+
+            Spacer(Modifier.height(12.dp))
+
+            SettingsDefaultButton(
+                icon = R.drawable.ic_vue_security_shield,
+                text = "Sync & automation",
+                iconPadding = 8.dp,
+                description = "Google Drive backup & sync, automatic entries from bank SMS and UPI apps"
+            ) {
+                nav.navigateTo(AutomationScreen)
             }
 
             Spacer(Modifier.height(12.dp))

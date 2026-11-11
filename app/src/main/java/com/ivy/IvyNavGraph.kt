@@ -17,7 +17,9 @@ import com.ivy.importdata.csvimport.ImportCSVScreen
 import com.ivy.loans.loan.LoansScreen
 import com.ivy.loans.loandetails.LoanDetailsScreen
 import com.ivy.main.MainScreen
+import com.ivy.automation.ui.AutomationScreenImpl
 import com.ivy.navigation.AttributionsScreen
+import com.ivy.navigation.AutomationScreen
 import com.ivy.navigation.BalanceScreen
 import com.ivy.navigation.BudgetScreen
 import com.ivy.navigation.CSVScreen
@@ -83,6 +85,7 @@ fun BoxWithConstraintsScope.IvyNavGraph(screen: Screen?) {
         is SearchScreen -> SearchScreen(screen = screen)
         is CSVScreen -> CSVScreen(screen = screen)
         FeaturesScreen -> FeaturesScreenImpl()
+        AutomationScreen -> AutomationScreenImpl()
         AttributionsScreen -> AttributionsScreenImpl()
         ContributorsScreen -> ContributorsScreenImpl()
         ReleasesScreen -> ReleasesScreenImpl()
