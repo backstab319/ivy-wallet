@@ -6,6 +6,7 @@ import android.content.ComponentName
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import androidx.activity.OnBackPressedCallback
 import android.os.Environment
 import android.provider.DocumentsContract
 import android.view.WindowManager
@@ -97,6 +98,7 @@ class RootActivity : AppCompatActivity(), RootScreen {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         setupApp()
+        handleBackButton()
         setContent {
             val viewModel: RootViewModel = viewModel()
             val isSystemInDarkTheme = isSystemInDarkTheme()
@@ -361,14 +363,24 @@ class RootActivity : AppCompatActivity(), RootScreen {
         biometricPrompt.authenticate(promptInfo)
     }
 
-    override fun onBackPressed() {
-        if (viewModel.isAppLocked()) {
-            super.onBackPressed()
-        } else {
-            if (!navigation.onBackPressed()) {
-                super.onBackPressed()
+    /**
+     * Apps that target Android 16+ no longer get Activity.onBackPressed(),
+     * so the back button is handled through the dispatcher.
+     */
+    private fun handleBackButton() {
+        onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    if (viewModel.isAppLocked() || !navigation.onBackPressed()) {
+                        // Nothing in the app wants it: let the system close the app
+                        isEnabled = false
+                        onBackPressedDispatcher.onBackPressed()
+                        isEnabled = true
+                    }
+                }
             }
-        }
+        )
     }
 
     @Suppress("TooGenericExceptionCaught", "PrintStackTrace")
