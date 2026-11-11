@@ -108,6 +108,7 @@ google-services-plugin = { module = "com.google.gms:google-services", version = 
 google-play-update = { module = "com.google.android.play:app-update", version = "2.1.0" }
 google-play-services = { module = "com.google.android.gms:play-services-tasks", version = "18.2.0" }
 google-play-review = { module = "com.google.android.play:review-ktx", version = "2.0.1" }
+google-play-services-auth = { module = "com.google.android.gms:play-services-auth", version = "21.2.0" }
 firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics", version = "19.0.3" }
 firebase-crashlytics-gradle-plugin = { module = "com.google.firebase:firebase-crashlytics-gradle", version = "3.0.2" }
 

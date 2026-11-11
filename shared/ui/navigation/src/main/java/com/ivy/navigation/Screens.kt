@@ -136,6 +136,8 @@ data object ExchangeRatesScreen : Screen {
 
 data object FeaturesScreen : Screen
 
+data object AutomationScreen : Screen
+
 data object AttributionsScreen : Screen
 
 data object ContributorsScreen : Screen

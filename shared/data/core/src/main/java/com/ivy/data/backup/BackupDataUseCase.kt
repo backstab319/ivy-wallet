@@ -204,8 +204,14 @@ class BackupDataUseCase @Inject constructor(
         jsonString: String,
         onProgress: suspend (Double) -> Unit = {},
         clearCacheDir: Boolean = false,
+        // false when the ids in the JSON must be kept exactly as they are (Drive sync)
+        dedupeByName: Boolean = true,
     ): ImportResult {
-        val modifiedJsonString = accommodateExistingAccountsAndCategories(jsonString)
+        val modifiedJsonString = if (dedupeByName) {
+            accommodateExistingAccountsAndCategories(jsonString)
+        } else {
+            jsonString
+        }
         val ivyWalletCompleteData = modifiedJsonString?.let {
             json.decodeFromString<IvyWalletCompleteData>(it)
         } ?: error("Failed to parse backup JSON.")
